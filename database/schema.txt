@@ -1,0 +1,132 @@
+
+## Table: Album
+
+  - AlbumId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Title (NVARCHAR(160)) [NOT NULL]
+  - ArtistId (INTEGER) [NOT NULL]
+
+  Foreign Keys:
+    - ArtistId -> Artist.ArtistId
+
+
+## Table: Artist
+
+  - ArtistId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Name (NVARCHAR(120))
+
+
+## Table: Customer
+
+  - CustomerId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - FirstName (NVARCHAR(40)) [NOT NULL]
+  - LastName (NVARCHAR(20)) [NOT NULL]
+  - Company (NVARCHAR(80))
+  - Address (NVARCHAR(70))
+  - City (NVARCHAR(40))
+  - State (NVARCHAR(40))
+  - Country (NVARCHAR(40))
+  - PostalCode (NVARCHAR(10))
+  - Phone (NVARCHAR(24))
+  - Fax (NVARCHAR(24))
+  - Email (NVARCHAR(60)) [NOT NULL]
+  - SupportRepId (INTEGER)
+
+  Foreign Keys:
+    - SupportRepId -> Employee.EmployeeId
+
+
+## Table: Employee
+
+  - EmployeeId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - LastName (NVARCHAR(20)) [NOT NULL]
+  - FirstName (NVARCHAR(20)) [NOT NULL]
+  - Title (NVARCHAR(30))
+  - ReportsTo (INTEGER)
+  - BirthDate (DATETIME)
+  - HireDate (DATETIME)
+  - Address (NVARCHAR(70))
+  - City (NVARCHAR(40))
+  - State (NVARCHAR(40))
+  - Country (NVARCHAR(40))
+  - PostalCode (NVARCHAR(10))
+  - Phone (NVARCHAR(24))
+  - Fax (NVARCHAR(24))
+  - Email (NVARCHAR(60))
+
+  Foreign Keys:
+    - ReportsTo -> Employee.EmployeeId
+
+
+## Table: Genre
+
+  - GenreId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Name (NVARCHAR(120))
+
+
+## Table: Invoice
+
+  - InvoiceId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - CustomerId (INTEGER) [NOT NULL]
+  - InvoiceDate (DATETIME) [NOT NULL]
+  - BillingAddress (NVARCHAR(70))
+  - BillingCity (NVARCHAR(40))
+  - BillingState (NVARCHAR(40))
+  - BillingCountry (NVARCHAR(40))
+  - BillingPostalCode (NVARCHAR(10))
+  - Total (NUMERIC(10,2)) [NOT NULL]
+
+  Foreign Keys:
+    - CustomerId -> Customer.CustomerId
+
+
+## Table: InvoiceLine
+
+  - InvoiceLineId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - InvoiceId (INTEGER) [NOT NULL]
+  - TrackId (INTEGER) [NOT NULL]
+  - UnitPrice (NUMERIC(10,2)) [NOT NULL]
+  - Quantity (INTEGER) [NOT NULL]
+
+  Foreign Keys:
+    - TrackId -> Track.TrackId
+    - InvoiceId -> Invoice.InvoiceId
+
+
+## Table: MediaType
+
+  - MediaTypeId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Name (NVARCHAR(120))
+
+
+## Table: Playlist
+
+  - PlaylistId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Name (NVARCHAR(120))
+
+
+## Table: PlaylistTrack
+
+  - PlaylistId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - TrackId (INTEGER) [PRIMARY KEY] [NOT NULL]
+
+  Foreign Keys:
+    - TrackId -> Track.TrackId
+    - PlaylistId -> Playlist.PlaylistId
+
+
+## Table: Track
+
+  - TrackId (INTEGER) [PRIMARY KEY] [NOT NULL]
+  - Name (NVARCHAR(200)) [NOT NULL]
+  - AlbumId (INTEGER)
+  - MediaTypeId (INTEGER) [NOT NULL]
+  - GenreId (INTEGER)
+  - Composer (NVARCHAR(220))
+  - Milliseconds (INTEGER) [NOT NULL]
+  - Bytes (INTEGER)
+  - UnitPrice (NUMERIC(10,2)) [NOT NULL]
+
+  Foreign Keys:
+    - MediaTypeId -> MediaType.MediaTypeId
+    - GenreId -> Genre.GenreId
+    - AlbumId -> Album.AlbumId
